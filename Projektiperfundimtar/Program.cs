@@ -20,7 +20,8 @@ class Program
             Console.WriteLine("9. New Anouncement");
             Console.WriteLine("10. Delete Anouncement");
             Console.WriteLine("11. Apply for Anouncement");
-            Console.WriteLine("12. Exit");
+            Console.WriteLine("12. Display all Applications");
+            Console.WriteLine("13. Exit");
             var choice = Console.ReadLine();
             switch (choice)
             {
@@ -74,12 +75,12 @@ class Program
                     }
                     else
                     {
-                        foreach (var announcement in announcements)
+                        foreach (var a in announcements)
                         {
-                            Console.WriteLine($"Announcement ID: {announcement.Id}");
-                            Console.WriteLine($"Title: {announcement.Title}");
-                            Console.WriteLine($"Description: {announcement.Description}");
-                            Console.WriteLine($"Published Date: {announcement.PublishedDate}");
+                            Console.WriteLine($"Announcement ID: {a.Id}");
+                            Console.WriteLine($"Title: {a.Title}");
+                            Console.WriteLine($"Description: {a.Description}");
+                            Console.WriteLine($"Published Date: {a.PublishedDate}");
                             Console.WriteLine("------------------------------");
                         }
                     }
@@ -163,6 +164,28 @@ class Program
                     }
                     break;
                 case "12":
+                    var applications = operationsRepo.GetAllApplications();
+                    if (applications == null)
+                    {
+                        Console.WriteLine("There are no applications in the database");
+                        Console.WriteLine("------------------------------");
+                    }
+                    foreach (var an in applications)
+                    {
+                        Console.WriteLine($"Application ID: {an.Id}");
+                        Console.WriteLine("------------------------------");
+                        Console.WriteLine($"Student ID: {an.StudentsId}");
+                        Console.WriteLine("------------------------------");
+                        Console.WriteLine($"Announcement ID: {an.AnnouncementId}");
+                        Console.WriteLine("------------------------------");
+                        Console.WriteLine($"Application Date: {an.ApplicationDate}");
+                        Console.WriteLine("------------------------------");
+                    }
+                    break;
+                    //tani eshte ne rregull po unittestet nuk me beheshin prej ksaj apo arsye tjeter
+                    //ja ta shohim
+
+                case "13":
                     exit = true;
                     break;
                 default:
@@ -172,3 +195,6 @@ class Program
         }
     }
 }
+
+//hiii
+//e rregullove ate prb qe kishe dje errorin e hoqa por me del qe nuk ka aplikime dhe kur i shtoj eshte kjo me komen

@@ -7,8 +7,9 @@ namespace Find_me_a_roommate
 {
     public class Applications
     {
+        //ktu e kemi sakte kehstuqe thjehst do bejme nje migrim te ri
         public int Id { get; set; }
-        public int StudentId { get; set; }
+        public int StudentsId { get; set; }
         public Students Students { get; set; }
         public DateTime ApplicationDate { get; set; }
         public bool IsActive { get; set; }

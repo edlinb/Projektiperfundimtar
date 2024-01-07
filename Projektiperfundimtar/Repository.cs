@@ -23,7 +23,7 @@ namespace Find_me_a_roommate
             _context.Dormitory.Add(dormitory);
             _context.SaveChanges();
         }
-        public void AddAnnouncement(Announcements announcements)
+        public void AddAnnouncement( Announcements announcements)
         {
             _context.Announcement.Add(announcements);
             _context.SaveChanges();
@@ -55,7 +55,7 @@ namespace Find_me_a_roommate
         }
         public List<Applications> GetAllApplications()
         {
-            _context.Application.Include(a => a.Students).ToList();
+            //_context.Application.Include(a => a.Students).ToList();
             return _context.Application.Include(a => a.Announcement).ToList();
         }
         public List<Announcements> GetAllAnnouncements()
@@ -142,11 +142,13 @@ namespace Find_me_a_roommate
                 var newdormitoryStudent = new DormitoryStudent();
                 newdormitoryStudent.DormitoryId = dormitoryId;
                 newdormitoryStudent.StudentId = studentId;
+                //e njejta gje edhe ketu
+                _context.DormitoryStudent.Add(newdormitoryStudent); 
                 _context.SaveChanges();
             }
             else
             {
-                Console.WriteLine("Student or Dormiotry not found.");
+                Console.WriteLine("Student or Dormitory not found.");
             }
         }
         public void RegisterStudentsToAnnouncements(int studentId, int anouncementId)
@@ -159,7 +161,9 @@ namespace Find_me_a_roommate
                 //ose application date mund ta vendosesh duke perdorur librarine system
                 newannouncementStudent.ApplicationDate = DateTime.Now;
                 newannouncementStudent.AnnouncementId = anouncementId;
-                newannouncementStudent.StudentId = studentId;
+                newannouncementStudent.StudentsId = studentId;
+                //ke harruar ta besh add ktu 
+                _context.Application.Add(newannouncementStudent);
                 _context.SaveChanges();
             }
             else
@@ -167,5 +171,6 @@ namespace Find_me_a_roommate
                 Console.WriteLine("Student or Dormitory not found.");
             }
         }
+
     }
 }
