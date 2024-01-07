@@ -101,26 +101,7 @@ namespace ProjectTest
             CollectionAssert.Contains(applications.Select(s => s.StudentsId).ToList(), 1);
         }
 
-        //[Test]
-        //public void AddStudent_ShouldAddApplicationToDatabase()
-        //{
-        //    //Arrange
-
-        //    var repo = new Repository();
-        //    var initialCount = repo.GetAllApplications().Count;
-
-        //    //Act
-
-        //    repo.AddAnnouncement(new Announcements { Title = " lalala", DormitoryId = 4,Description = "Test " });
-
-        //    //Assert
-
-        //    var announcement = repo.GetAllApplications();
-        //    Assert.AreEqual(initialCount + 0, announcement.Count);
-        //    CollectionAssert.Contains(announcement.Select(s => s.StudentId).ToList(),1 );
-
-
-        //}
+       
         [Test]
         public void UpdateStudent_ShouldUpdateStudent()
         {
@@ -213,32 +194,30 @@ namespace ProjectTest
             Assert.AreEqual("Test", updatedAnnouncement.Description);
 
         }
-        //[Test]
-        //public void UpdateApplication_ShouldUpdateApplicaton()
-        //{
-        //    //Arrange
+        [Test]
+        public void UpdateApplication_ShouldUpdateApplication()
+        {
+            //Arrange
 
-        //    var repo = new Repository();
-        //    var announcement = new Announcements { DormitoryId = 4, Title = "Test", Description = "Test" };
-        //    repo.AddApplication(announcement);
-        //    announcement.DormitoryId = 4;
-        //    announcement.Title = "Test";
-        //    announcement.Description = "Test";
+            var repo = new Repository();
+            var application = repo.GetAllApplications().Where(s => s.Id == 7).FirstOrDefault();
+            //Act
 
-        //    //Act
+            repo.UpdateApplication(application);
+            
+            //Assert
 
-        //    repo.UpdateAnnouncement(announcement);
-        //    //Assert
+            var updatedApplication = repo.GetAllApplications().Where(s => s.Id == 7).FirstOrDefault();
+            Assert.NotNull(updatedApplication);
+            Assert.AreEqual(22, updatedApplication.AnnouncementId);
+            Assert.AreEqual(2, updatedApplication.StudentsId);
+          
+        }
 
-        //    var updatedAnnouncement = repo.GetAllAnnouncements().FirstOrDefault(s => s.Id == announcement.Id);
-        //    Assert.NotNull(updatedAnnouncement);
-        //    Assert.AreEqual(4, updatedAnnouncement.DormitoryId);
-        //    Assert.AreEqual("Test", updatedAnnouncement.Title);
-        //    Assert.AreEqual("Test", updatedAnnouncement.Description);
 
-        //}
 
         [Test]
+
         public void DeleteStudent_ShouldDeleteStudentFromDAtabase()
         {
             //Arrange
@@ -319,29 +298,29 @@ namespace ProjectTest
 
         }
 
-        //[Test]
-        //public void DeleteApplication_ShouldDeleteApplicationFromDAtabase()
-        //{
-        //    //Arrange
+        [Test]
+        public void DeleteApplication_ShouldDeleteApplicationFromDAtabase()
+        {
+            //Arrange
 
-        //    var repo = new Repository();
-        //    var announcement = new Announcements { DormitoryId = 4, Title = "Test", Description = "Test" };
-        //    repo.AddAnnouncement(announcement);
-        //    var initialCount = repo.GetAllAnnouncements().Count();
+            var repo = new Repository();
+            var application = new Applications { StudentsId = 1, AnnouncementId = 22  };
+            repo.AddApplication(application);
+            var initialCount = repo.GetAllApplications().Count();
 
-        //    //Act
-        //    repo.DeleteAnnouncement(announcement.Id);
+            //Act
+            repo.DeleteApplication(application.Id);
 
-        //    //Assserrt
+            //Assserrt
 
-        //    var students = repo.GetAllAnnouncements();
-        //    Assert.AreEqual(initialCount - 1, students.Count);
-        //    CollectionAssert.DoesNotContain(students, announcement.Id);
+            var students = repo.GetAllApplications();
+            Assert.AreEqual(initialCount - 1, students.Count);
+            CollectionAssert.DoesNotContain(students, application.Id);
 
-        //////////////////}
+            }
 
 
 
+        }
     }
-}
 
